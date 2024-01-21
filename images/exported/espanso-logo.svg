@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_7" data-name="Layer 7" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="linear-gradient" x1="28.31" y1="-186.7" x2="28.31" y2="-220.2" gradientTransform="translate(0 -176.11) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#028987"/>
+      <stop offset="1" stop-color="#025a42"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="24.85" y1="-198.49" x2="52.74" y2="-212.63" gradientTransform="translate(0 -176.11) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#03756b"/>
+      <stop offset="1" stop-color="#e3ed24"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-3" x1="17.32" y1="-197.13" x2="40.49" y2="-222.82" gradientTransform="translate(0 -176.11) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#51fbe5"/>
+      <stop offset="1" stop-color="#a4d76c"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-4" x1="11.49" y1="-204.13" x2="56.58" y2="-223.3" gradientTransform="translate(0 -176.11) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#a3d972"/>
+      <stop offset="1" stop-color="#fff500"/>
+    </linearGradient>
+  </defs>
+  <g id="espanso-logo">
+    <path id="logo-sweep-dark-background" d="M30.27,21.82c-15.94,1.08-21.97-7.13-26.61-11.23-2.62,25.31,4.53,28.89,12.28,32.47,7.75,3.58,26.25-3.66,37.55.59-.57-18.02-7.29-22.91-23.22-21.83Z" style="fill: url(#linear-gradient); stroke-width: 0px;"/>
+    <g id="logo-caret">
+      <path d="M57.16,7.21h-25.5c1.13,7.43,8.39,7.43,8.39,7.43h3.77l-5.18,36.27h-11.75c0,2.54,3.06,7.37,6.7,7.37h18.83c.71-.06,2.18-.85,2.36-3.48s-2.06-3.69-3.2-3.89h-5.28l5.03-36.27c1.76.06,5.58.15,6.82,0,1.54-.19,2.86-1.1,2.86-4.14,0-2.43-2.55-3.21-3.83-3.29Z" style="fill: url(#linear-gradient-2); stroke-width: 0px;"/>
+    </g>
+    <g id="logo-sweep-lime">
+      <path d="M13.45,23.25c-4.05-2.21-8.74-8.66-9.74-12.93-.46,2.93-1.51,13.55.3,18.18,2.26,5.79,9.71,10.54,15.83,10.54s18.61-1.89,24.46-.38c4.68,1.21,8.13,2.82,9.2,5.16-1.15-14.79-12.49-15.98-22.09-16.64-6.37-.44-12.9-1.16-17.96-3.93Z" style="fill: url(#linear-gradient-3); fill-opacity: .7; stroke-width: 0px;"/>
+    </g>
+    <g id="logo-sweep-bottom">
+      <path d="M13.74,36.48c-7.54-2.87-9.56-14.42-10-25.9C-1.26,45.63,19.83,46.57,29.25,44.46c9.43-2.11,17.12-2.7,24.37-.63-2.28-3.49-5.05-5.53-13.01-5.94-7.96-.41-17.44,2.17-26.87-1.41Z" style="fill: url(#linear-gradient-4); stroke-width: 0px;"/>
+    </g>
+  </g>
+</svg>
