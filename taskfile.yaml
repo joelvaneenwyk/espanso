@@ -1,0 +1,32 @@
+version: '3'
+
+tasks:
+  setup:
+    cmds:
+      - cargo install rust-script --version "0.7.0"
+      - sudo cargo install --force cargo-make --version 0.37.7
+    silent: false
+
+  build-plain:
+    cmds:
+      - cargo make build-binary --profile release
+
+  build-installer:
+    cmds:
+      - cargo make build-windows-installer --profile release
+
+  build-portable:
+    cmds:
+      - cargo make build-windows-portable --profile release
+
+  create-bundle:
+    deps:
+      - setup
+    cmds:
+      - cargo make create-bundle --profile release
+  build:
+    deps:
+      - setup
+      - build-plain
+    cmds:
+      - echo 'Finished building "espanso" project.'

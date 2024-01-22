@@ -1,0 +1,10 @@
+{
+    "recommendations": [
+        "rust-lang.rust-analyzer",
+        "serayuzgur.crates",
+        "swellaby.vscode-rust-test-adapter",
+        "jscearcy.rust-doc-viewer",
+        "lorenzopirro.rust-flash-snippets",
+        "vadimcn.vscode-lldb"
+    ]
+}
