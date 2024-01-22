@@ -81,8 +81,8 @@ jobs:
           CODESIGN_PWD: ${{ secrets.WIN_CODESIGN_PWD }}
           CODESIGN_CROSS_SIGNED_B64: ${{ secrets.WIN_CODESIGN_INTERMEDIATE_B64 }}
           CODESIGN_CERTIFICATE_B64: ${{ secrets.WIN_CODESIGN_CERTIFICATE_B64 }}
-      - name: Build portable mode archive 
-        run: cargo make --profile release --skip-tasks build-windows-resources -- build-windows-portable
+      - name: Build portable mode archive
+        run: cargo make build-windows-portable --profile release --skip-tasks build-windows-resources
       - name: Create portable mode archive
         shell: powershell
         run: |
@@ -161,7 +161,7 @@ jobs:
       - name: Upload artifacts to Github Releases (if master)
         if: ${{ github.ref == 'refs/heads/master' }}
         run: |
-          gh release upload ${{ needs.extract-version.outputs.espanso_version }} espanso-debian-x11-amd64.deb espanso-debian-wayland-amd64.deb espanso-debian-x11-amd64-sha256.txt espanso-debian-wayland-amd64-sha256.txt 
+          gh release upload ${{ needs.extract-version.outputs.espanso_version }} espanso-debian-x11-amd64.deb espanso-debian-wayland-amd64.deb espanso-debian-x11-amd64-sha256.txt espanso-debian-wayland-amd64-sha256.txt
 
   # linux-rpm:
   #   needs: ["extract-version", "create-release"]
@@ -188,7 +188,7 @@ jobs:
   #     - name: Upload artifacts to Github Releases (if master)
   #       if: ${{ github.ref == 'refs/heads/master' }}
   #       run: |
-  #         gh release upload ${{ needs.extract-version.outputs.espanso_version }} espanso-fedora-wayland-amd64.deb espanso-fedora-wayland-amd64-sha256.txt 
+  #         gh release upload ${{ needs.extract-version.outputs.espanso_version }} espanso-fedora-wayland-amd64.deb espanso-fedora-wayland-amd64-sha256.txt
   #
 
   macos-intel:

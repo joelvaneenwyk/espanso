@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="EMPTY_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/espanso-clipboard/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/espanso-config/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/espanso-detect/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/espanso-engine/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/espanso-info/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/espanso-inject/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/espanso-ipc/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/espanso-kvs/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/espanso-mac-utils/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/espanso-match/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/espanso-migrate/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/espanso-modulo/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/espanso-package/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/espanso-path/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/espanso-render/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/espanso-ui/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/espanso/src" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
