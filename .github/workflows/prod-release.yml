@@ -5,8 +5,7 @@ name: Prod Release
 
 on:
   push:
-    branches:
-      - master
+    branches: [main]
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -19,7 +18,7 @@ jobs:
     outputs:
       espanso_version: ${{ steps.version.outputs.version }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: "Extract version"
         id: "version"
         run: |
@@ -33,7 +32,7 @@ jobs:
     environment: production
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Create new release (only on master)
         if: ${{ github.ref == 'refs/heads/master' }}
         run: |
@@ -56,7 +55,7 @@ jobs:
         shell: bash
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Print target version
         run: |
           echo Using version ${{ needs.extract-version.outputs.espanso_version }}
@@ -82,7 +81,7 @@ jobs:
           CODESIGN_PWD: ${{ secrets.WIN_CODESIGN_PWD }}
           CODESIGN_CROSS_SIGNED_B64: ${{ secrets.WIN_CODESIGN_INTERMEDIATE_B64 }}
           CODESIGN_CERTIFICATE_B64: ${{ secrets.WIN_CODESIGN_CERTIFICATE_B64 }}
-      - name: Build portable mode archive 
+      - name: Build portable mode archive
         run: cargo make build-windows-portable --profile release --skip-tasks build-windows-resources
       - name: Create portable mode archive
         shell: powershell
@@ -107,14 +106,14 @@ jobs:
         if: ${{ github.ref == 'refs/heads/master' }}
         run: |
           gh release upload ${{ needs.extract-version.outputs.espanso_version }} target/windows/installer/Espanso-Win-Installer-x86_64.exe target/windows/Espanso-Win-Portable-x86_64.zip target/windows/installer/Espanso-Win-Installer-x86_64.exe.sha256.txt target/windows/Espanso-Win-Portable-x86_64.zip.sha256.txt
-  
+
   linux-x11:
     needs: ["extract-version", "create-release"]
     runs-on: ubuntu-latest
     environment: production
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Print target version
         run: |
           echo Using version ${{ needs.extract-version.outputs.espanso_version }}
@@ -135,14 +134,14 @@ jobs:
         if: ${{ github.ref == 'refs/heads/master' }}
         run: |
           gh release upload ${{ needs.extract-version.outputs.espanso_version }} Espanso-X11.AppImage Espanso-X11.AppImage.sha256.txt
-  
+
   linux-deb:
     needs: ["extract-version", "create-release"]
     runs-on: ubuntu-latest
     environment: production
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Print target version
         run: |
           echo Using version ${{ needs.extract-version.outputs.espanso_version }}
@@ -162,8 +161,7 @@ jobs:
       - name: Upload artifacts to Github Releases (if master)
         if: ${{ github.ref == 'refs/heads/master' }}
         run: |
-          gh release upload ${{ needs.extract-version.outputs.espanso_version }} espanso-debian-x11-amd64.deb espanso-debian-wayland-amd64.deb espanso-debian-x11-amd64-sha256.txt espanso-debian-wayland-amd64-sha256.txt 
-
+          gh release upload ${{ needs.extract-version.outputs.espanso_version }} espanso-debian-x11-amd64.deb espanso-debian-wayland-amd64.deb espanso-debian-x11-amd64-sha256.txt espanso-debian-wayland-amd64-sha256.txt
 
   macos-intel:
     needs: ["extract-version", "create-release"]
@@ -171,7 +169,7 @@ jobs:
     environment: production
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Print target version
         run: |
           echo Using version ${{ needs.extract-version.outputs.espanso_version }}
@@ -188,14 +186,14 @@ jobs:
         env:
           MACOSX_DEPLOYMENT_TARGET: "10.13"
       - name: Codesign executable
-        env: 
+        env:
           MACOS_CERTIFICATE: ${{ secrets.PROD_MACOS_CERTIFICATE }}
           MACOS_CERTIFICATE_PWD: ${{ secrets.PROD_MACOS_CERTIFICATE_PWD }}
           MACOS_CERTIFICATE_NAME: ${{ secrets.PROD_MACOS_CERTIFICATE_NAME }}
           MACOS_CI_KEYCHAIN_PWD: ${{ secrets.PROD_MACOS_CI_KEYCHAIN_PWD }}
         run: |
           echo $MACOS_CERTIFICATE | base64 --decode > certificate.p12
-          security create-keychain -p "$MACOS_CI_KEYCHAIN_PWD" buildespanso.keychain 
+          security create-keychain -p "$MACOS_CI_KEYCHAIN_PWD" buildespanso.keychain
           security default-keychain -s buildespanso.keychain
           security unlock-keychain -p "$MACOS_CI_KEYCHAIN_PWD" buildespanso.keychain
           security import certificate.p12 -k buildespanso.keychain -P "$MACOS_CERTIFICATE_PWD" -T /usr/bin/codesign
@@ -235,14 +233,14 @@ jobs:
         if: ${{ github.ref == 'refs/heads/master' }}
         run: |
           gh release upload ${{ needs.extract-version.outputs.espanso_version }} Espanso-Mac-Intel.zip Espanso-Mac-Intel.zip.sha256.txt
-  
+
   macos-m1:
     needs: ["extract-version", "create-release"]
     runs-on: macos-11
     environment: production
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Print target version
         run: |
           echo Using version ${{ needs.extract-version.outputs.espanso_version }}
@@ -255,14 +253,14 @@ jobs:
       - name: Build
         run: cargo make create-bundle --profile release --env BUILD_ARCH=aarch64-apple-darwin
       - name: Codesign executable
-        env: 
+        env:
           MACOS_CERTIFICATE: ${{ secrets.PROD_MACOS_CERTIFICATE }}
           MACOS_CERTIFICATE_PWD: ${{ secrets.PROD_MACOS_CERTIFICATE_PWD }}
           MACOS_CERTIFICATE_NAME: ${{ secrets.PROD_MACOS_CERTIFICATE_NAME }}
           MACOS_CI_KEYCHAIN_PWD: ${{ secrets.PROD_MACOS_CI_KEYCHAIN_PWD }}
         run: |
           echo $MACOS_CERTIFICATE | base64 --decode > certificate.p12
-          security create-keychain -p "$MACOS_CI_KEYCHAIN_PWD" buildespanso.keychain 
+          security create-keychain -p "$MACOS_CI_KEYCHAIN_PWD" buildespanso.keychain
           security default-keychain -s buildespanso.keychain
           security unlock-keychain -p "$MACOS_CI_KEYCHAIN_PWD" buildespanso.keychain
           security import certificate.p12 -k buildespanso.keychain -P "$MACOS_CERTIFICATE_PWD" -T /usr/bin/codesign
@@ -309,7 +307,7 @@ jobs:
     environment: production
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Print target version
         run: |
           echo Using version ${{ needs.extract-version.outputs.espanso_version }}
@@ -318,7 +316,7 @@ jobs:
         uses: webfactory/ssh-agent@fc49353b67b2b7c1e0e6a600572d01a69f2672dd
         with:
           ssh-private-key: ${{ secrets.HOMEBREW_CASK_SSH_PRIVATE_KEY }}
-      
+
       - name: Create and Publish Homebrew Cask
         if: ${{ github.ref == 'refs/heads/master' }}
         run: |
