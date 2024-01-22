@@ -29,9 +29,7 @@ use clap::{App, AppSettings, Arg, ArgMatches, SubCommand};
 use cli::{CliAlias, CliModule, CliModuleArgs};
 use log::{error, info, warn};
 use logging::FileProxy;
-use simplelog::{
-  CombinedLogger, ConfigBuilder, LevelFilter, SharedLogger, TermLogger, TerminalMode, WriteLogger,
-};
+use simplelog::{CombinedLogger, ConfigBuilder, LevelFilter, SharedLogger, TermLogger, TerminalMode, WriteLogger, ColorChoice};
 
 use crate::{
   cli::{LogMode, PathsOverrides},
@@ -541,7 +539,7 @@ For example, specifying 'email' is equivalent to 'match/email.yml'."#))
       )];
 
       if !handler.disable_logs_terminal_output {
-        outputs.insert(0, TermLogger::new(log_level, config, TerminalMode::Mixed));
+        outputs.insert(0, TermLogger::new(log_level, config, TerminalMode::Mixed, ColorChoice::Auto));
       }
 
       CombinedLogger::init(outputs).expect("unable to initialize logs");
@@ -552,7 +550,7 @@ For example, specifying 'email' is equivalent to 'match/email.yml'."#))
 
     // If the process doesn't require linux capabilities, disable them
     if !handler.requires_linux_capabilities {
-      if let Err(err) = crate::capabilities::clear_capabilities() {
+      if let Err(err) = capabilities::clear_capabilities() {
         error!("unable to clear linux capabilities: {}", err);
       }
     }

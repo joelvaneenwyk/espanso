@@ -19,7 +19,8 @@
 
 use std::{path::Path, time::Duration};
 
-use notify::{DebouncedEvent, RecommendedWatcher, RecursiveMode, Watcher};
+use notify::{RecommendedWatcher, RecursiveMode, Watcher};
+use notify_debouncer_full::{DebouncedEvent};
 
 use anyhow::Result;
 use crossbeam::{channel::Sender, select};

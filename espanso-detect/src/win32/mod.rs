@@ -289,7 +289,7 @@ impl From<RawInputEvent> for Option<InputEvent> {
         };
 
         let value = if raw.buffer_len > 0 {
-          let raw_string_result = U16CStr::from_slice_with_nul(&raw.buffer);
+          let raw_string_result = U16CStr::from_slice(&raw.buffer);
           match raw_string_result {
             Ok(c_string) => {
               let string_result = c_string.to_string();
