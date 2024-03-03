@@ -1,10 +1,15 @@
-version: '3'
+version: "3"
 
 tasks:
+  default:
+    cmds:
+      - task: build
+
   setup:
     cmds:
+      - rustup update
       - cargo install rust-script --version "0.7.0"
-      - sudo cargo install --force cargo-make --version 0.37.7
+      - sudo cargo install --force cargo-make --version 0.37.10
     silent: false
 
   build-plain:
@@ -24,6 +29,7 @@ tasks:
       - setup
     cmds:
       - cargo make create-bundle --profile release
+
   build:
     deps:
       - setup
