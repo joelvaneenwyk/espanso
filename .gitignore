@@ -8,6 +8,7 @@
 /target
 **/*.rs.bk
 
+# .idea
 _site/
 
 cmake-build-debug
@@ -30,7 +31,11 @@ xcuserdata
 profile
 *.moved-aside
 DerivedData
+# .idea/
 
 *.snap
 
 venv/
+
+# .vscode/
+*.profraw
