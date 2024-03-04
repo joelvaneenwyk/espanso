@@ -33,6 +33,6 @@ tasks:
   build:
     deps:
       - setup
-      - build-plain
     cmds:
+      - task: build-plain
       - echo 'Finished building "espanso" project.'
