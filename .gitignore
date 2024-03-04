@@ -6,7 +6,6 @@
 **/*.rs.bk
 
 /target
-**/*.rs.bk
 
 # .idea
 _site/
@@ -31,7 +30,6 @@ xcuserdata
 profile
 *.moved-aside
 DerivedData
-# .idea/
 
 *.snap
 
