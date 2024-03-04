@@ -84,6 +84,7 @@ fn build_native() {
           .to_string(),
       )
       .args([
+        "/d",
         "/k",
         &vcvars_path.to_string_lossy(),
         "&",
