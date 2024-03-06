@@ -15,7 +15,7 @@ regex = "1.5.5"
 [build-dependencies]
 cc = "1.0.73"
 regex = "1.5.5"
-zip = "0.5.12"
+zip = "0.6.6"
 winres = "0.1.11"
 glob = "0.3.0"
 
