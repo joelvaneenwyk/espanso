@@ -24,7 +24,7 @@ jobs:
         run: |
           ESPANSO_VERSION=$(grep '^version' espanso/Cargo.toml | awk -F '"' '{ print $2 }')
           echo version: $ESPANSO_VERSION
-          echo "::set-output name=version::v$ESPANSO_VERSION"
+          echo "ESPANSO_VERSION=v$ESPANSO_VERSION"" >> $GITHUB_ENV
 
   windows:
     needs: ["extract-version"]
