@@ -8,6 +8,7 @@
 /target
 **/*.rs.bk
 
+# .idea
 _site/
 
 cmake-build-debug
@@ -34,3 +35,7 @@ DerivedData
 *.snap
 
 venv/
+
+# .vscode/
+*.profraw
+**/*.code-workspace
