@@ -19,7 +19,7 @@
 
 use log::info;
 use std::process::Command;
-use sysinfo::{System};
+use sysinfo::System;
 
 #[cfg(target_os = "windows")]
 pub fn set_command_flags(command: &mut Command) {

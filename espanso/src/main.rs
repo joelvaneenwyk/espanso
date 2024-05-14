@@ -26,7 +26,10 @@ use clap::{App, AppSettings, Arg, ArgMatches, SubCommand};
 use cli::{CliAlias, CliModule, CliModuleArgs};
 use log::{error, info, warn};
 use logging::FileProxy;
-use simplelog::{CombinedLogger, ConfigBuilder, LevelFilter, SharedLogger, TermLogger, TerminalMode, WriteLogger, ColorChoice};
+use simplelog::{
+  ColorChoice, CombinedLogger, ConfigBuilder, LevelFilter, SharedLogger, TermLogger, TerminalMode,
+  WriteLogger,
+};
 
 use crate::{
   cli::{LogMode, PathsOverrides},
@@ -538,7 +541,10 @@ For example, specifying 'email' is equivalent to 'match/email.yml'."#))
       )];
 
       if !handler.disable_logs_terminal_output {
-        outputs.insert(0, TermLogger::new(log_level, config, TerminalMode::Mixed, ColorChoice::Auto));
+        outputs.insert(
+          0,
+          TermLogger::new(log_level, config, TerminalMode::Mixed, ColorChoice::Auto),
+        );
       }
 
       CombinedLogger::init(outputs).expect("unable to initialize logs");
