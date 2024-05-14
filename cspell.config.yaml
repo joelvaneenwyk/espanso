@@ -2,7 +2,7 @@ version: "0.2"
 ignorePaths: []
 dictionaryDefinitions:
   - name: espanso-dictionary
-    path: ./.cspell/espanso-dictionary.txt
+    path: ./.vscode/espanso-dictionary.txt
     addWords: true
 dictionaries:
   - espanso-dictionary
