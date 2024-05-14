@@ -1,6 +1,7 @@
 # Espanso dictionary
 Alacritty
 cmds
+codeql
 ctypes
 espanso
 espansoinject
