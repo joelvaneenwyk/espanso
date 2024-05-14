@@ -1,5 +1,7 @@
 # Espanso dictionary
+aarch
 Alacritty
+clippy
 cmds
 codeql
 ctypes
@@ -12,11 +14,15 @@ libx
 libxkbcommon
 libxtst
 MSVC
+mxschmitt
 NUMLOCK
 Numpad
 NUMPAD
 PAGEUP
+rustfmt
 srelease
+Swatinem
+sysinfo
 Terzi
 vkey
 vkeys
