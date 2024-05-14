@@ -21,7 +21,7 @@ use anyhow::{Error, Result};
 use log::error;
 use std::process::Command;
 use std::{path::Path, time::Instant};
-use sysinfo::{ProcessRefreshKind, RefreshKind, System};
+use sysinfo::{PidExt, ProcessExt, ProcessRefreshKind, RefreshKind, System, SystemExt};
 use thiserror::Error;
 
 use espanso_ipc::IPCClient;

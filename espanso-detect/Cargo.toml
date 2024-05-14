@@ -26,6 +26,7 @@ workspace = true
 
 [target.'cfg(windows)'.dependencies]
 widestring.workspace = true
+nt-string.workspace = true
 
 [target.'cfg(target_os="linux")'.dependencies]
 libc = "0.2.85"
