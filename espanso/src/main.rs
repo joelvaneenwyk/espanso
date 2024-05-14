@@ -238,9 +238,9 @@ fn main() {
     .subcommand(SubCommand::with_name("edit")
         .about("Shortcut to open the default text editor to edit config files")
         .arg(Arg::with_name("target_file")
-            .help(r#"Defaults to "match/base.yml", it contains the relative path of the file you want to edit, 
-such as 'config/default.yml' or 'match/base.yml'. 
-For convenience, you can also specify the name directly and Espanso will figure out the path. 
+            .help(r#"Defaults to "match/base.yml", it contains the relative path of the file you want to edit,
+such as 'config/default.yml' or 'match/base.yml'.
+For convenience, you can also specify the name directly and Espanso will figure out the path.
 For example, specifying 'email' is equivalent to 'match/email.yml'."#))
         // .arg(Arg::with_name("norestart")
         //     .short("n")
@@ -540,7 +540,10 @@ For example, specifying 'email' is equivalent to 'match/email.yml'."#))
       )];
 
       if !handler.disable_logs_terminal_output {
-        outputs.insert(0, TermLogger::new(log_level, config, TerminalMode::Mixed));
+        outputs.insert(
+          0,
+          TermLogger::new(log_level, config, TerminalMode::Mixed, ColorChoice::Auto),
+        );
       }
 
       CombinedLogger::init(outputs).expect("unable to initialize logs");
@@ -551,7 +554,7 @@ For example, specifying 'email' is equivalent to 'match/email.yml'."#))
 
     // If the process doesn't require linux capabilities, disable them
     if !handler.requires_linux_capabilities {
-      if let Err(err) = crate::capabilities::clear_capabilities() {
+      if let Err(err) = capabilities::clear_capabilities() {
         error!("unable to clear linux capabilities: {}", err);
       }
     }

@@ -48,9 +48,9 @@ jobs:
       - name: Build resources
         run: cargo make --profile release -- build-windows-resources
       - name: Build installer
-        run: cargo make --profile release --skip-tasks build-windows-resources -- build-windows-installer
-      - name: Build portable mode archive 
-        run: cargo make --profile release --skip-tasks build-windows-resources -- build-windows-portable
+        run: cargo make build-windows-installer --profile release --skip-tasks build-windows-resources
+      - name: Build portable mode archive
+        run: cargo make build-windows-portable --profile release --skip-tasks build-windows-resources
       - name: Create portable mode archive
         shell: powershell
         run: |

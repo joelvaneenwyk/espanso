@@ -8,13 +8,19 @@ tasks:
   setup:
     cmds:
       - rustup update
-      - cargo install rust-script --version "0.7.0"
-      - sudo cargo install --force cargo-make --version 0.37.10
+      - cargo install --force --version "0.7.0" rust-script
+      - cargo install --force --version "0.37.5" cargo-make
     silent: false
+
+  build:
+    deps: [setup]
+    cmds:
+      - task: build-plain
+      - echo 'Finished building "espanso" project.'
 
   build-plain:
     cmds:
-      - cargo make build-binary --profile release
+      - cmd: cargo make --profile release -- build-binary
 
   build-installer:
     cmds:
@@ -29,10 +35,3 @@ tasks:
       - setup
     cmds:
       - cargo make create-bundle --profile release
-
-  build:
-    deps:
-      - setup
-    cmds:
-      - task: build-plain
-      - echo 'Finished building "espanso" project.'

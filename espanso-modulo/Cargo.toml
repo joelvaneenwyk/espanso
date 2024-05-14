@@ -15,8 +15,8 @@ regex.workspace = true
 [build-dependencies]
 cc.workspace = true
 regex.workspace = true
-zip = "0.5.12"
-winres = "0.1.11"
+zip = "0.6.6"
+winres = "0.1.12"
 glob.workspace = true
 
 [lints]
