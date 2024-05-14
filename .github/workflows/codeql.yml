@@ -26,11 +26,14 @@ jobs:
       matrix:
         include:
         - language: c-cpp
-          build-mode: autobuild
+          build-mode: manual
         - language: python
           build-mode: none
         - language: ruby
           build-mode: none
+
+    env:
+      WX_WIDGETS_BUILD_OUT_DIR: "${{github.workspace}}/wx-widgets-build"
 
     name: Analyze (${{ matrix.language }})
     runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
@@ -39,6 +42,9 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        submodules: recursive
 
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
@@ -47,15 +53,35 @@ jobs:
         languages: ${{ matrix.language }}
         build-mode: ${{ matrix.build-mode }}
 
-    - if: matrix.build-mode == 'manual'
-      shell: bash
+    - uses: Swatinem/rust-cache@v2
+
+    - name: Install Linux dependencies
+      if: ${{ runner.os != 'Linux' && matrix.build-mode == 'manual' }}
       run: |
-        echo 'If you are using a "manual" build mode for one or more of the' \
-          'languages you are analyzing, replace this with the commands to build' \
-          'your code, for example:'
-        echo '  make bootstrap'
-        echo '  make release'
-        exit 1
+        sudo apt-get update
+        sudo apt-get install -y libx11-dev libxtst-dev libxkbcommon-dev libdbus-1-dev libwxgtk3.0-gtk3-dev
+
+    - name: Install rust-script and cargo-make
+      if: matrix.build-mode == 'manual'
+      run: |
+        cargo install rust-script --version "0.7.0"
+        cargo install cargo-make --version 0.37.5
+
+    # wxWidgets builds (internal to espanso-modulo) are by far the largest bottleneck
+    # in the current pipeline, so we cache the results for a faster compilation process
+    - name: "Cache wxWidgets builds"
+      if: ${{ runner.os != 'Linux' && matrix.build-mode == 'manual' }}
+      uses: actions/cache@v3
+      with:
+        path: |
+          ${{env.WX_WIDGETS_BUILD_OUT_DIR}}
+        key: ${{ github.job }}-${{ runner.os }}-${{ hashFiles('espanso-modulo/build.rs') }}-${{ hashFiles('espanso-modulo/vendor/*') }}
+
+    - name: Build
+      shell: bash
+      if: matrix.build-mode == 'manual'
+      run: |
+        cargo make build-binary
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
