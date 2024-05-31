@@ -7,7 +7,6 @@
 
 /target
 
-# .idea
 _site/
 
 cmake-build-debug
@@ -35,6 +34,8 @@ DerivedData
 
 venv/
 
-# .vscode/
 *.profraw
 **/*.code-workspace
+
+.idea/
+.run/
