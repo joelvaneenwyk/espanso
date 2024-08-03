@@ -5,8 +5,7 @@ name: Dev Release
 
 on:
   push:
-    branches:
-      - dev
+    branches: [develop]
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -19,13 +18,13 @@ jobs:
     outputs:
       espanso_version: ${{ steps.version.outputs.version }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: "Extract version"
         id: "version"
         run: |
           ESPANSO_VERSION=$(grep '^version' espanso/Cargo.toml | awk -F '"' '{ print $2 }')
           echo version: $ESPANSO_VERSION
-          echo "::set-output name=version::v$ESPANSO_VERSION"
+          echo "ESPANSO_VERSION=v$ESPANSO_VERSION"" >> $GITHUB_ENV
 
   windows:
     needs: ["extract-version"]
@@ -36,7 +35,7 @@ jobs:
         shell: bash
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Print target version
         run: |
           echo Using version ${{ needs.extract-version.outputs.espanso_version }}
@@ -71,13 +70,13 @@ jobs:
             target/windows/Espanso-Win-Portable-x86_64.zip
             target/windows/installer/Espanso-Win-Installer-x86_64.exe.sha256.txt
             target/windows/Espanso-Win-Portable-x86_64.zip.sha256.txt
-  
+
   linux-x11:
     needs: ["extract-version"]
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Print target version
         run: |
           echo Using version ${{ needs.extract-version.outputs.espanso_version }}
@@ -94,13 +93,13 @@ jobs:
           path: |
             Espanso-X11.AppImage
             Espanso-X11.AppImage.sha256.txt
-  
+
   linux-deb:
     needs: ["extract-version"]
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Print target version
         run: |
           echo Using version ${{ needs.extract-version.outputs.espanso_version }}
@@ -118,35 +117,12 @@ jobs:
             espanso-debian-x11-amd64.deb
             espanso-debian-wayland-amd64.deb
 
-  # linux-rpm:
-  #   needs: ["extract-version"]
-  #   runs-on: fedora-latest
-  #
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - name: Print target version
-  #       run: |
-  #         echo Using version ${{ needs.extract-version.outputs.espanso_version }}
-  #     - name: Build docker image
-  #       run: |
-  #         sudo docker build -t espanso-fedora . -f .github/scripts/fedora/Dockerfile
-  #     - name: Build rpm packages
-  #       run: |
-  #         sudo docker run --rm -v "$(pwd):/shared" espanso-fedora espanso/.github/scripts/fedora/build_rpm.sh
-  #     - uses: actions/upload-artifact@v4
-  #       name: "Upload artifacts"
-  #       with:
-  #         name: Fedora Artifacts
-  #         path: |
-  #           espanso-fedora-wayland-amd64.deb
-  #
-
   macos-intel:
     needs: ["extract-version"]
     runs-on: macos-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Print target version
         run: |
           echo Using version ${{ needs.extract-version.outputs.espanso_version }}
@@ -175,13 +151,13 @@ jobs:
           path: |
             Espanso-Mac-Intel.zip
             Espanso-Mac-Intel.zip.sha256.txt
-  
+
   macos-m1:
     needs: ["extract-version"]
     runs-on: macos-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Print target version
         run: |
           echo Using version ${{ needs.extract-version.outputs.espanso_version }}

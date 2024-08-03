@@ -1,0 +1,20 @@
+# Espanso dictionary
+cmds
+ctypes
+espanso
+espansoinject
+KEYEVENTF
+libdbus
+libwxgtk
+libx
+libxkbcommon
+libxtst
+MSVC
+NUMLOCK
+Numpad
+NUMPAD
+PAGEUP
+srelease
+Terzi
+vkey
+vkeys

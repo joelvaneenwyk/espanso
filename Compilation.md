@@ -6,14 +6,13 @@ This document tries to explain the various steps needed to build espanso. (Work 
 
 These are the basic tools required to build espanso:
 
-* A recent Rust compiler. You can install it following [these instructions](https://www.rust-lang.org/tools/install)
-* A C/C++ compiler. There are multiple of them depending on the platform, but espanso officially supports the following:
-  * On Windows, you should use the MSVC compiler. The easiest way to install it is by downloading [Visual Studio](https://visualstudio.microsoft.com/) and checking "Desktop development with C++" in the installer.
+- A recent Rust compiler. You can install it following [these instructions](https://www.rust-lang.org/tools/install)
+- A C/C++ compiler. There are multiple of them depending on the platform, but espanso officially supports the following:
+  - On Windows, you should use the MSVC compiler. The easiest way to install it is by downloading [Visual Studio](https://visualstudio.microsoft.com/) and checking "Desktop development with C++" in the installer.
   Note that [Visual Studio Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) alone doesn't fulfill all the requirements for espanso.
-  * On macOS, you should use the official build tools that come with Xcode. If you don't want to install Xcode, you should be able to download only the build tools by executing `xcode-select —install` and following the instructions.
-  * On Linux, you should use the default C/C++ compiler (it's usually GCC). On Ubuntu/Debian systems, you can install them with `sudo apt install build-essential`
-
-* Espanso heavily relies on [cargo make](https://github.com/sagiegurari/cargo-make) for the various packaging
+  - On macOS, you should use the official build tools that come with Xcode. If you don't want to install Xcode, you should be able to download only the build tools by executing `xcode-select —install` and following the instructions.
+  - On Linux, you should use the default C/C++ compiler (it's usually GCC). On Ubuntu/Debian systems, you can install them with `sudo apt install build-essential`
+- Espanso heavily relies on [cargo make](https://github.com/sagiegurari/cargo-make) for the various packaging
 steps. You can install it by running:
 
 ```bash
@@ -83,11 +82,11 @@ If you don't know which one to choose, follow [these steps to determine which on
 
 If compiling on a version of Ubuntu X11 before 22.04 (including 22.04):
 
-* `sudo apt install libx11-dev libxtst-dev libxkbcommon-dev libdbus-1-dev libwxgtk3.0-gtk3-dev`
+- `sudo apt install libx11-dev libxtst-dev libxkbcommon-dev libdbus-1-dev libwxgtk3.0-gtk3-dev`
 
 If compiling on a version of Ubuntu X11 after 22.04:
 
-* `sudo apt install libx11-dev libxtst-dev libxkbcommon-dev libdbus-1-dev libwxgtk3.2-dev`
+- `sudo apt install libx11-dev libxtst-dev libxkbcommon-dev libdbus-1-dev libwxgtk3.2-dev`
 
 ### Compiling for X11
 
