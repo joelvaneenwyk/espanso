@@ -52,7 +52,7 @@ tasks:
     deps: [build]
     dir: ./target/release
     cmds:
-      - ./espanso {{.CLI_ARGS}}
+      - ./espanso {{.CLI_ARGS | default "start"}}
 
   run-binary:
     deps: [setup]
