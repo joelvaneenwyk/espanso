@@ -1,1 +1,1 @@
-@"%~dp0espansod.exe" %*
+@call "%~dp0espansod.exe" %*
