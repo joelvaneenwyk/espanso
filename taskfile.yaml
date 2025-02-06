@@ -1,3 +1,6 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+# https://taskfile.dev
+
 version: "3"
 
 tasks:
@@ -6,33 +9,43 @@ tasks:
       - task: build
 
   setup:
+    status:
+      - cargo make --version
+      - rust-script --version
     cmds:
       - rustup update
-      - cargo install rust-script --version "0.7.0"
-      - sudo cargo install --force cargo-make --version 0.37.10
+      - cargo install rust-script
+      - cargo install cargo-make
     silent: false
 
-  build-plain:
+  resources:
+    deps: [setup]
     cmds:
-      - cargo make build-binary --profile release
-
-  build-installer:
-    cmds:
-      - cargo make build-windows-installer --profile release
-
-  build-portable:
-    cmds:
-      - cargo make build-windows-portable --profile release
-
-  create-bundle:
-    deps:
-      - setup
-    cmds:
-      - cargo make create-bundle --profile release
+      - cargo make --profile release -- build-windows-resources
 
   build:
-    deps:
-      - setup
+    deps: [resources]
     cmds:
-      - task: build-plain
-      - echo 'Finished building "espanso" project.'
+      - cargo make --profile release -- build-binary 
+      - cargo make --profile release -- build-windows-portable
+      - cargo make --profile release -- test-binary
+
+  run:
+    deps: [setup]
+    cmds:
+      - cargo make --profile release -- run-binary 
+
+  build-installer:
+    deps: [setup]
+    cmds:
+      - cargo make --profile release -- build-windows-installer 
+
+  build-portable:
+    deps: [setup]
+    cmds:
+      - cargo make --profile release -- build-windows-portable 
+
+  create-bundle:
+    deps: [setup]
+    cmds:
+      - cargo make --profile release -- create-bundle 
