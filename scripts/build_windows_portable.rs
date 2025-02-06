@@ -32,7 +32,7 @@ fn main() {
   }).expect("unable to copy resources");
 
   // Create the launcher
-  std::fs::write(target_dir.join("START_ESPANSO.bat"), r#"start espansod.exe launcher"#).unwrap();
+  std::fs::write(target_dir.join("START_ESPANSO.bat"), r#"@start "Espanso" /D "%~dp0" "%~dp0espansod.exe" launcher"#).unwrap();
 
   // Create the necessary folders
   std::fs::create_dir_all(target_dir.join(".espanso")).expect("unable to create data directory");
@@ -40,20 +40,20 @@ fn main() {
 
   std::fs::write(target_dir.join("README.txt"), r##"Welcome to Espanso (Portable edition)!
 
-To start espanso, you can double click on "START_ESPANSO.bat"  
+To start espanso, you can double click on "START_ESPANSO.bat"
 
 After the first run, you will see some files in the ".espanso" directory.
 This is where your snippets and configurations should be defined.
 
-For more information, please visit the official documentation: 
+For more information, please visit the official documentation:
 https://espanso.org/docs/
 
 IMPORTANT: Don't delete any file or directory, otherwise espanso won't work.
 
 
-FOR ADVANCED USERS:  
+FOR ADVANCED USERS:
 
-Espanso also offers a rich CLI interface. To start it from the terminal, cd into the 
+Espanso also offers a rich CLI interface. To start it from the terminal, cd into the
 current directory and run "espanso start". You can also run "espanso --help" for more information.
 
 You might have noticed that the directory contains both an "espansod.exe" and an "espanso.cmd" file.
