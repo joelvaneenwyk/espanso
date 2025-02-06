@@ -6,7 +6,7 @@ version: "3"
 tasks:
   default:
     cmds:
-      - task: build
+      - task: run
 
   setup:
     status:
@@ -20,32 +20,56 @@ tasks:
 
   resources:
     deps: [setup]
+    sources:
+      - ./Cargo.*
+      - ./espanso-*/**/*.rs
+    generates:
+      - ./target/windows/resources/*
     cmds:
       - cargo make --profile release -- build-windows-resources
 
   build:
     deps: [resources]
+    sources:
+      - ./Cargo.*
+      - ./espanso-*/**/*.rs
+    generates:
+      - ./target/release/espanso*
     cmds:
-      - cargo make --profile release -- build-binary 
+      - cargo make --profile release -- build-binary
+
+  release:
+    deps: [build]
+    cmds:
       - cargo make --profile release -- build-windows-portable
+
+  test:
+    deps: [build]
+    cmds:
       - cargo make --profile release -- test-binary
 
   run:
+    deps: [build]
+    dir: ./target/release
+    cmds:
+      - ./espanso {{.CLI_ARGS}}
+
+  run-binary:
     deps: [setup]
     cmds:
-      - cargo make --profile release -- run-binary 
+      - cargo make --profile release -- run-binary
 
   build-installer:
     deps: [setup]
     cmds:
-      - cargo make --profile release -- build-windows-installer 
+      - cargo make --profile release -- build-windows-installer
 
   build-portable:
     deps: [setup]
     cmds:
-      - cargo make --profile release -- build-windows-portable 
+      - cargo make --profile release -- build-windows-portable
 
   create-bundle:
     deps: [setup]
     cmds:
-      - cargo make --profile release -- create-bundle 
+      - cargo make --profile release -- create-bundle

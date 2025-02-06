@@ -39,6 +39,7 @@ venv/
 
 .idea/
 .run/
+.task/
 
 # Binaries
 
