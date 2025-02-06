@@ -79,5 +79,5 @@ fn main() {
   std::fs::copy(exec_file, target_dir.join("espansod.exe")).unwrap();
 
   // Create the CLI wrapper
-  std::fs::write(target_dir.join("espanso.cmd"), r#"@"%~dp0espansod.exe" %*"#).unwrap();
+  std::fs::write(target_dir.join("espanso.cmd"), r#"@call "%~dp0espansod.exe" %*"#).unwrap();
 }
