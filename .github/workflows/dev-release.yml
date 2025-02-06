@@ -5,7 +5,12 @@ name: Dev Release
 
 on:
   push:
-    branches: [develop]
+    paths-ignore:
+      - 'docs/**'
+      - '*.md'
+    branches:
+      - develop
+      - dev
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -41,7 +46,7 @@ jobs:
           echo Using version ${{ needs.extract-version.outputs.espanso_version }}
       - name: Install rust-script and cargo-make
         run: |
-          cargo install rust-script --version "0.7.0"
+          cargo install rust-script
           cargo install --force cargo-make --version 0.37.5
       - name: Test
         run: cargo make --profile release -- test-binary
@@ -82,7 +87,7 @@ jobs:
           echo Using version ${{ needs.extract-version.outputs.espanso_version }}
       - name: Build docker image
         run: |
-          sudo docker build -t espanso-ubuntu . -f .github/scripts/ubuntu/Dockerfile
+          sudo docker build -t espanso-ubuntu . -f .github/scripts/Dockerfile
       - name: Build AppImage
         run: |
           sudo docker run --rm -v "$(pwd):/shared" espanso-ubuntu espanso/.github/scripts/ubuntu/build_appimage.sh
@@ -105,7 +110,7 @@ jobs:
           echo Using version ${{ needs.extract-version.outputs.espanso_version }}
       - name: Build docker image
         run: |
-          sudo docker build -t espanso-ubuntu . -f .github/scripts/ubuntu/Dockerfile
+          sudo docker build -t espanso-ubuntu . -f .github/scripts/Dockerfile
       - name: Build Deb packages
         run: |
           sudo docker run --rm -v "$(pwd):/shared" espanso-ubuntu espanso/.github/scripts/ubuntu/build_deb.sh
@@ -117,9 +122,32 @@ jobs:
             espanso-debian-x11-amd64.deb
             espanso-debian-wayland-amd64.deb
 
+  # linux-rpm:
+  #   needs: ["extract-version"]
+  #   runs-on: fedora-latest
+  #
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Print target version
+  #       run: |
+  #         echo Using version ${{ needs.extract-version.outputs.espanso_version }}
+  #     - name: Build docker image
+  #       run: |
+  #         sudo docker build -t espanso-fedora . -f .github/scripts/fedora/Dockerfile
+  #     - name: Build rpm packages
+  #       run: |
+  #         sudo docker run --rm -v "$(pwd):/shared" espanso-fedora espanso/.github/scripts/fedora/build_rpm.sh
+  #     - uses: actions/upload-artifact@v4
+  #       name: "Upload artifacts"
+  #       with:
+  #         name: Fedora Artifacts
+  #         path: |
+  #           espanso-fedora-wayland-amd64.deb
+  #
+
   macos-intel:
     needs: ["extract-version"]
-    runs-on: macos-11
+    runs-on: macos-latest
 
     steps:
       - uses: actions/checkout@v4
@@ -128,7 +156,7 @@ jobs:
           echo Using version ${{ needs.extract-version.outputs.espanso_version }}
       - name: Install rust-script and cargo-make
         run: |
-          cargo install rust-script --version "0.7.0"
+          cargo install rust-script
           cargo install --force cargo-make --version 0.37.5
       - name: Test
         run: cargo make --profile release -- test-binary
@@ -154,7 +182,7 @@ jobs:
 
   macos-m1:
     needs: ["extract-version"]
-    runs-on: macos-11
+    runs-on: macos-latest
 
     steps:
       - uses: actions/checkout@v4
@@ -165,7 +193,7 @@ jobs:
         run: rustup update && rustup target add aarch64-apple-darwin
       - name: Install rust-script and cargo-make
         run: |
-          cargo install rust-script --version "0.7.0"
+          cargo install rust-script
           cargo install --force cargo-make --version 0.37.5
       - name: Build
         run: cargo make --env BUILD_ARCH=aarch64-apple-darwin --profile release -- create-bundle
